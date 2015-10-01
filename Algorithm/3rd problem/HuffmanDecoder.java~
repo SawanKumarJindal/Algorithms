@@ -1,0 +1,68 @@
+import java.util.Scanner;
+public class HuffmanDecoder
+{
+	static int noOfFrequencies;
+	static String arr[][];
+	static String b[];
+	static String output;
+	//public static void radixSort()
+	//{
+	public static void decodingInput()
+	{
+		int i=0,column=1,row=1;
+		while(i < b.length)
+		{
+			System.out.println("Decode value-ptr: " +i+" Value: "+b[i] +" Table-row: "+row+" Value In Array: "+arr[row][column]+ " Table-col:"+column);
+			if(arr[row][column] != b[i])
+			{			
+				System.out.println("Not Equal");
+				++row;						
+			}
+			else if(arr[row][column] == b[i] && arr[row][column+1] == null )
+			{
+				System.out.println("Found");
+				output +=arr[row][0];
+				++i;
+				column=1;
+				row=1;
+			}
+			else
+			{
+				System.out.println("Found but not equal");
+				++i;
+				++column;
+			}
+		}
+		System.out.println(output);
+	}	 
+        public static void main(String[] args)
+        {
+       	 	 Scanner sc=new Scanner(System.in);
+		noOfFrequencies=sc.nextInt();
+	 	arr=new String[noOfFrequencies+1][noOfFrequencies+1];
+			for(int i=1;i<=noOfFrequencies;i++)
+			{
+				int j=0;
+				arr[i][j]=String.valueOf(sc.next());
+				//System.out.println(arr[i][j]+"HAHA");				
+				++j;
+				String temp=sc.next(); 
+				//System.out.println(temp+" temp");	
+				int lengthOfTemp=temp.length();
+				//System.out.println(lengthOfTemp+"  lengthOfTemp");	
+				while(j<=lengthOfTemp)
+				{
+				//	System.out.println(temp.charAt(j-1));
+					arr[i][j]=String.valueOf(temp.charAt(j-1));
+					++j;
+				}
+			}
+		//radixSort();
+		int lengthToDecode=sc.nextInt();
+		b=new String[lengthToDecode];
+		String temp=sc.next();
+		for(int i=0;i<lengthToDecode;i++)
+			b[i]=String.valueOf(temp.charAt(i));
+		decodingInput();
+	}
+}
